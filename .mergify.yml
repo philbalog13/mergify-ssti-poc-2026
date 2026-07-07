@@ -7,7 +7,6 @@ pull_request_rules:
     actions:
       merge:
         method: merge
-        strict: false
         commit_message_template: |
           SSTI1: {{ 7*7 }}
   # === ssti-2-attformat ===
@@ -18,7 +17,6 @@ pull_request_rules:
     actions:
       merge:
         method: merge
-        strict: false
         commit_message_template: |
           SSTI2: {{ ''|attr('format')('{0.__class__}') }}
   # === ssti-3-percent ===
@@ -29,83 +27,5 @@ pull_request_rules:
     actions:
       merge:
         method: merge
-        strict: false
         commit_message_template: |
           SSTI3: {{ "%d%%20" % 42 }}
-  # === ssti-4-self ===
-  - name: ssti-4-self
-    conditions:
-      - base=main
-      - head~=^test-ssti-4-self-
-    actions:
-      merge:
-        method: merge
-        strict: false
-        commit_message_template: |
-          SSTI4: {{ self.__dict__ }}
-  # === ssti-5-getsection ===
-  - name: ssti-5-getsection
-    conditions:
-      - base=main
-      - head~=^test-ssti-5-getsection-
-    actions:
-      merge:
-        method: merge
-        strict: false
-        commit_message_template: |
-          SSTI5: {{ body|get_section("(.*)", "")|attr("__class__") }}
-  # === ssti-6-reduce ===
-  - name: ssti-6-reduce
-    conditions:
-      - base=main
-      - head~=^test-ssti-6-reduce-
-    actions:
-      merge:
-        method: merge
-        strict: false
-        commit_message_template: |
-          SSTI6: {{ "".__class__|attr("__reduce__") }}
-  # === ssti-7-reduce-ex ===
-  - name: ssti-7-reduce-ex
-    conditions:
-      - base=main
-      - head~=^test-ssti-7-reduce-ex-
-    actions:
-      merge:
-        method: merge
-        strict: false
-        commit_message_template: |
-          SSTI7: {{ "".__class__|attr("__reduce_ex__") }}
-  # === ssti-8-globals-attformat ===
-  - name: ssti-8-globals-attformat
-    conditions:
-      - base=main
-      - head~=^test-ssti-8-globals-attformat-
-    actions:
-      merge:
-        method: merge
-        strict: false
-        commit_message_template: |
-          SSTI8: {{ lipsum|attr('__globals__') }}
-  # === ssti-9-percent-raw ===
-  - name: ssti-9-percent-raw
-    conditions:
-      - base=main
-      - head~=^test-ssti-9-percent-raw-
-    actions:
-      merge:
-        method: merge
-        strict: false
-        commit_message_template: |
-          SSTI9: {{ lipsum.__init__.__globals__ }}
-  # === ssti-10-subclasshook ===
-  - name: ssti-10-subclasshook
-    conditions:
-      - base=main
-      - head~=^test-ssti-10-subclasshook-
-    actions:
-      merge:
-        method: merge
-        strict: false
-        commit_message_template: |
-          SSTI10: {{ "".__class__|attr("__subclasshook__") }}

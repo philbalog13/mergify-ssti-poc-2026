@@ -9,6 +9,7 @@ pull_request_rules:
         method: merge
         commit_message_template: |
           SSTI1: {{ 7*7 }}
+
   # === ssti-2-attformat ===
   - name: ssti-2-attformat
     conditions:
@@ -19,13 +20,12 @@ pull_request_rules:
         method: merge
         commit_message_template: |
           SSTI2: {{ ''|attr('format')('{0.__class__}') }}
-  # === ssti-3-percent ===
-  - name: ssti-3-percent
+
+  # test-no-template — test pure merge sans template
+  - name: ssti-pure-merge
     conditions:
       - base=main
-      - head~=^test-ssti-3-percent-
+      - head~=^test-pure-merge-
     actions:
       merge:
         method: merge
-        commit_message_template: |
-          SSTI3: {{ "%d%%20" % 42 }}
